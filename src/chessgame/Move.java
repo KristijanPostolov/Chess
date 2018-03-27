@@ -5,17 +5,16 @@ public class Move {
     public final Figure figure;
     public final Position from;
     public final Position to;
-    public final Move associatedMove;
 
     public Move(Figure figure, Position from, Position to) {
-        this(figure, from, to, null);
-    }
-
-    public Move(Figure figure, Position from, Position to, Move associatedMove) {
         this.figure = figure;
         this.from = from;
         this.to = to;
-        this.associatedMove = associatedMove;
+    }
+
+    public void applyOn(Figure board[][]) {
+        board[to.rank][to.column] = board[from.rank][from.column];
+        board[from.rank][from.column] = null;
     }
 
 }

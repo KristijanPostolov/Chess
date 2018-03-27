@@ -4,20 +4,12 @@ import java.util.Objects;
 
 public class Position {
 
-    private final int x;
-    private final int y;
+    public final int rank;
+    public final int column;
 
-    public Position(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+    public Position(int rank, int column) {
+        this.rank = rank;
+        this.column = column;
     }
 
     @Override
@@ -29,16 +21,16 @@ public class Position {
             return false;
         }
         Position position = (Position) o;
-        return x == position.x && y == position.y;
+        return rank == position.rank && column == position.column;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Objects.hash(rank, column);
     }
 
     @Override
     public String toString() {
-        return String.format("%c%d", 'A' + x, y+1);
+        return String.format("%c%d", 'A' + column, rank);
     }
 }

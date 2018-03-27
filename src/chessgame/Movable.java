@@ -1,8 +1,9 @@
 package chessgame;
 
+import java.util.Collection;
+
 public interface Movable {
 
-    // TODO: Should return Move-s. Easier castle, en passant and convert to queen
-    Iterable<Move> possibleMoves(GameState state, Position from);
+    Collection<Move> possibleMoves(GameState state, Position from);
 
 }

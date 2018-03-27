@@ -16,7 +16,7 @@ public abstract class Figure implements Movable {
     private static int U_ID = 1;
 
     private final int id;
-    private final Color figureColor;
+    protected final Color figureColor;
 
     public Figure(Color figureColor) {
         this.figureColor = figureColor;

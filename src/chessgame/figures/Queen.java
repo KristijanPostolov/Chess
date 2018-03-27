@@ -2,6 +2,8 @@ package chessgame.figures;
 
 import chessgame.*;
 
+import java.util.Collection;
+
 public class Queen extends Figure {
 
     public Queen(Color figureColor) {
@@ -14,7 +16,7 @@ public class Queen extends Figure {
     }
 
     @Override
-    public Iterable<Move> possibleMoves(GameState state, Position from) {
+    public Collection<Move> possibleMoves(GameState state, Position from) {
         return null;
     }
 

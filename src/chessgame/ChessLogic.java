@@ -7,63 +7,50 @@ import java.util.Set;
 
 public class ChessLogic {
 
-    public static boolean inBoard(int x, int y, int width, int height) {
-        return (x >= 0) && (x < width) && (y >= 0) && (y < height);
-    }
-
     public static GameState getInitialState() {
         int width = 8;
         int height = 8;
-        Figure layout[][] = new Figure[height][width];
+        BoardBuilder bb = new BoardBuilder(height, width);
         for(int j = 0; j < width; j++) {
-            layout[1][j] = new Pawn(Color.WHITE);
-            layout[height - 2][j] = new Pawn(Color.BLACK);
+            bb.addPawn(1, j, Color.WHITE);
+            bb.addPawn(height - 2, j, Color.BLACK);
         }
-        layout[0][0] = new Rook(Color.WHITE);
-        layout[0][1] = new Knight(Color.WHITE);
-        layout[0][2] = new Bishop(Color.WHITE);
-        layout[0][3] = new Queen(Color.WHITE);
-        layout[0][4] = new King(Color.WHITE);
-        layout[0][5] = new Bishop(Color.WHITE);
-        layout[0][6] = new Knight(Color.WHITE);
-        layout[0][7] = new Rook(Color.WHITE);
+        bb.addRook(0, 0, Color.WHITE);
+        bb.addKnight(0, 1, Color.WHITE);
+        bb.addBishop(0, 2, Color.WHITE);
+        bb.addQueen(0, 3, Color.WHITE);
+        bb.addKing(0, 4, Color.WHITE);
+        bb.addBishop(0, 5, Color.WHITE);
+        bb.addKnight(0, 6, Color.WHITE);
+        bb.addRook(0, 7, Color.WHITE);
 
-        layout[height - 1][0] = new Rook(Color.BLACK);
-        layout[height - 1][1] = new Knight(Color.BLACK);
-        layout[height - 1][2] = new Bishop(Color.BLACK);
-        layout[height - 1][3] = new Queen(Color.BLACK);
-        layout[height - 1][4] = new King(Color.BLACK);
-        layout[height - 1][5] = new Bishop(Color.BLACK);
-        layout[height - 1][6] = new Knight(Color.BLACK);
-        layout[height - 1][7] = new Rook(Color.BLACK);
-        return new GameState(Color.WHITE, layout, new HashSet<Figure>(), null);
+        bb.addRook(height-1, 0, Color.BLACK);
+        bb.addKnight(height-1, 1, Color.BLACK);
+        bb.addBishop(height-1, 2, Color.BLACK);
+        bb.addQueen(height-1, 3, Color.BLACK);
+        bb.addKing(height-1, 4, Color.BLACK);
+        bb.addBishop(height-1, 5, Color.BLACK);
+        bb.addKnight(height-1, 6, Color.BLACK);
+        bb.addRook(height-1, 7, Color.BLACK);
+
+        return new GameState(Color.WHITE, bb.build(), new HashSet<>(), null);
     }
 
     public static GameState executeMove(GameState state, Move move) {
-        int height = state.getHeight();
-        int width = state.getWigth();
+        int height = state.board.height;
+        int width = state.board.width;
         Figure newLayout[][] = new Figure[height][width];
-        for(int i = 0; i < height; i++) {
+        /*for(int i = 0; i < height; i++) {
             for(int j = 0; j < width; j++) {
-                newLayout[i][j] = state.layout[i][j];
+                newLayout[i][j] = state.board[i][j];
             }
-        }
+        }*/
         Set<Figure> newMoved = new HashSet<>(state.moved);
-        calculateLayout(newLayout, newMoved, move);
+        //calculateLayout(newLayout, newMoved, move);
         Color playerTurn = nextPlayer(state.playerTurn);
         return new GameState(playerTurn, newLayout, newMoved, move);
     }
 
-    private static void calculateLayout(Figure board[][], Set<Figure> moved, Move move) {
-        if(move.to != null) {
-            board[move.to.getX()][move.to.getY()] = board[move.from.getX()][move.from.getY()];
-            moved.add(move.figure);
-        }
-        board[move.from.getX()][move.from.getY()] = null;
-        if(move.associatedMove != null) {
-            calculateLayout(board, moved, move.associatedMove);
-        }
-    }
 
     private static Color nextPlayer(Color player) {
         if(player == Color.WHITE) {

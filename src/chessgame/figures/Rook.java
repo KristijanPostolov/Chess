@@ -2,6 +2,8 @@ package chessgame.figures;
 
 import chessgame.*;
 
+import java.util.Collection;
+
 public class Rook extends Figure {
 
     public Rook(Color figureColor) {
@@ -14,7 +16,7 @@ public class Rook extends Figure {
     }
 
     @Override
-    public Iterable<Move> possibleMoves(GameState state, Position from) {
+    public Collection<Move> possibleMoves(GameState state, Position from) {
         return null;
     }
 

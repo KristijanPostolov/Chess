@@ -3,7 +3,7 @@ package chessgame;
 
 public class Game {
 
-    private final BoardPrinter board = new BoardPrinter();
+    private final BoardPrinter printer = new BoardPrinter();
 
     private final int width;
     private final int height;
@@ -23,7 +23,7 @@ public class Game {
     }
 
     public void next() {
-        board.show(currentState);
+        printer.show(currentState);
     }
 
 
